@@ -5,6 +5,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <title>tellmeastory</title>
+    <script src="//www.parsecdn.com/js/parse-1.2.19.min.js"></script>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
-
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
@@ -20,39 +21,143 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="../bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
+    <!-- Parse Library -->
   </head>
   <body>
 
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-        <li>HTML5 Boilerplate</li>
-        <li>Normalize CSS</li>
+    <!-- <div class="container">
+      <div class="mainCol">
+        <div class="userfield loggedinActions"></div>
+        <div class="add loggedinActions"><button>Add</button></div>
+        <div class="logout loggedinActions"><button>Log Out</button></div>
+        <div class="story_cont"></div>
+      </div>
+    </div> -->
+<?php include("../header.php"); ?>
 
-        <li>Sass</li>
+    <div id="background"></div>
+    <div id="midground"></div>
+    <div id="foreground"></div>
+    
+    <div id="page-wrap">
 
-
-        <li>Modernizr</li>
-
-
-        <li>Bourbon & Neat</li>
-
-
-        <li>UnderscoreJS</li>
-
-      </ul>
-      <p>Don't forget to update your readme file!!</p>
+<div class="story_cont"></div>
+    <div class="background-one">
+        <div class="definingcontainer">    
+            <h1 class="header">
+                <p class="headerweight">TELL ME A STORY</p>
+                <p class="header2">Be funny, Be creative, Be adventurous</p>
+            </h1>   
+        </div>
     </div>
+
+
+    <div class="mothercontainer">
+        <div class="leftcontainer">
+            <img class="av"src="images/useravatar1.png">
+            <div class="useractions1">
+                <div class="userfield loggedinActions"></div>
+                <a href="#" class="profile_view">View Profile</a>
+                <div class="logout loggedinActions"><button>Log Out</button></div>
+                    <input id="createpost" type="submit" value="Post"/>
+            </div>
+        </div>
+
+        <div class="rightcontainer">
+            <form action="" id="newStory">
+                <section class="zero">
+                    <div class="story-unit">
+                        <div id="title_a">
+                            <input type="text" name="blog_title" class="blog_title" placeholder="put Title here..."/>
+                    <br/>
+                        </div>
+                          <textarea name="title" class="postform" cols="30" rows="10" placeholder="tell me your story"></textarea>
+                    </div>
+                        </div>
+                </section>
+            </form> 
+        </div>
+    </div>
+
+
+    <footer class="userfeed">
+        <div class="storyfeed">
+            <img class="ab"src="images/cover1.jpg">
+            <img class="ab"src="images/cover2.jpg">
+            <img class="ab"src="images/cover3.jpg">
+        </div>
+    </footer>
+
+
+<?php include("../footer.php"); ?>
+
+            <div class="box1">
+                <!-- <div class="story_list"></div> -->
+                <div class="submitted_edit"></div>
+                <div class="form_container"></div>
+            </div>
+
+    <script type="text/x-handlebars-template" id="story_items">
+      <div class="cards">
+        {{#each posts}}
+          <div class="card">
+            {{#if tried}}
+              <div class="ribbon-wrapper"><div class="ribbon">Read</div></div>
+            {{/if}}
+            <div class="card-header">{{ name }}</div>
+            <div class="card-copy"><p>{{ description }}</p></div>
+            <div class="actions">
+              <button class="toggle" id="{{ objectId }}">&#x2713;</button>
+              <button class="edit" id="{{ objectId }}">&#x270e;</button>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </script>
+
+
+
+
+<script type="text/x-handlebars-template" id="story_user">
+    <div class="usermain">
+        <div class="hero-unit2">
+          <h2>Register Here!</h2>
+            <form action="" class="signupform" id="reguser">
+                Username: <input type="email" name="email" id="regname" placeholder="ianyad@exmp.com">  <br>
+                Password: <input type="password" name="password" id="regpassword" placeholder="Password"> <br>
+                          <input type="password" name="password2" placeholder="Confirm password" /> <br>
+                    <br>
+                          <input type="submit" id="regUser" value="Register">
+            </form>
+            </br>
+        <div class="split">
+            <form action="" class="signInform" id="logmein">
+                <h2>Log Me In!</h2>   
+                Username: <input type="username" name="email" id="username" placeholder="Username" required="yes"> <br>
+                Password: <input type="password" name="password" id="password2" placeholder="Password" required="yes"> <br>
+                          <input type="submit" class="logmein" value="Login">
+            </form>
+        </div>
+    </div>
+</script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/backbone/backbone.js"></script>
+    <script src="../bower_components/handlebars/handlebars.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
+        <script src="scripts/StoryRouter.js"></script>
+<!--         // <script src="scripts/story_collection.js"></script> -->
+        <script src="scripts/storyedit_view.js"></script>
+        <script src="scripts/model.js"></script>
+        <script src="scripts/regView.js"></script>
+        <script src="scripts/view.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
